@@ -20,15 +20,16 @@ pipeline{
         stage('quality-gate status'){
             steps{
                 script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                        waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
+                    }
                 }
             }
         }
-
         stage('docker-build'){
             steps{
                 script{
-                    
+                    sh 'docker build -t maven-app .'
                 }
             }
         }
