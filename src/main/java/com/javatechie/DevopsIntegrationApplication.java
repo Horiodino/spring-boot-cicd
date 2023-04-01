@@ -1,4 +1,3 @@
-
 package com.javatechie;
 
 import org.springframework.boot.SpringApplication;
@@ -12,7 +11,7 @@ public class DevopsIntegrationApplication {
 
 	@GetMapping
 	public String message(){
-		return "spring boot with jenkins integration";
+		return "help me im under the water ";
 	}
 
 	public static void main(String[] args) {
