@@ -1,12 +1,17 @@
 pipeline{
     agent any
     stages{
+        stage('docker-permission'){
+            steps{
+                script{
+                    sh 'sudo docker chmod 777 /var/run/docker.sock'
+                }
+            }
+        }
 
         stage('sonar quality status'){
             agent{
-
                 docker{
-                    sh 'chmod 777 /var/run/docker.sock'
                     image 'maven:3.6.3-jdk-8-slim'
                 }
             }
@@ -16,7 +21,6 @@ pipeline{
                     withSonarQubeEnv(credentialsId: 'sonar-token') {
                         sh 'mvn clean package sonar:sonar'
                     }
-                    
                 }
             }
         }
